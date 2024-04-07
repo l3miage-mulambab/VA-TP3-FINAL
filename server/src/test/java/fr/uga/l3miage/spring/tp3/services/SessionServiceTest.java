@@ -44,49 +44,34 @@ public class SessionServiceTest {
 
     @Test
     void createSessionOk() throws ExamNotFoundException {
-        // given
-        SessionProgrammationStepCreationRequest sessionProgrammationStepCreationRequest = SessionProgrammationStepCreationRequest
-                .builder()
-                .description("Etape 1")
-                .build();
-        EcosSessionProgrammationStepEntity progSessionStep = sessionMapper.toEntity(sessionProgrammationStepCreationRequest);
+        SessionCreationRequest sessionCreationRequest = SessionCreationRequest
+                .builder().build();
 
         SessionProgrammationCreationRequest sessionProgrammationCreationRequest = SessionProgrammationCreationRequest
-                .builder()
-                .steps(Set.of(sessionProgrammationStepCreationRequest))
-                .build();
-        EcosSessionProgrammationEntity progSession = sessionMapper.toEntity(sessionProgrammationCreationRequest);
+                .builder().build();
 
-        SessionCreationRequest creationRequest = SessionCreationRequest
-                .builder()
-                .ecosSessionProgrammation(sessionProgrammationCreationRequest)
-                .build();
-        EcosSessionEntity session = sessionMapper.toEntity(creationRequest);
+        SessionProgrammationStepCreationRequest sessionProgrammationStepCreationRequest = SessionProgrammationStepCreationRequest
+                .builder().build();
 
-        progSessionStep.setDescription("Etape 1");
+        EcosSessionEntity ecosSessionEntity = EcosSessionEntity
+                .builder().build();
 
-        progSession.setEcosSessionProgrammationStepEntities(Set.of(progSessionStep));
-
-        session.setEcosSessionProgrammationEntity(progSession);
-
-        ExamEntity exam = ExamEntity
+        ExamEntity examEntity = ExamEntity
                 .builder()
                 .id(3L)
-                .sessionEntity(session)
                 .build();
 
-        session.setExamEntities(Set.of(exam));
+        sessionProgrammationCreationRequest.setSteps(Set.of(sessionProgrammationStepCreationRequest));
+        sessionCreationRequest.setEcosSessionProgrammation(sessionProgrammationCreationRequest);
+        sessionCreationRequest.setExamsId(Set.of(examEntity.getId()));
 
-        when(sessionComponent.createSession(session)).thenReturn(session);
+        when(sessionComponent.createSession(any(EcosSessionEntity.class))).thenReturn(ecosSessionEntity);
+        when(examComponent.getAllById(Set.of(anyLong()))).thenReturn(Set.of(examEntity));
 
-        SessionResponse expectedResponse = sessionMapper.toResponse(session);
+        SessionResponse sessionResponseExpected = sessionMapper.toResponse(ecosSessionEntity);
+        SessionResponse sessionResponseActual = sessionService.createSession(sessionCreationRequest);
 
-        // when
-        SessionResponse actualResponse = sessionService.createSession(creationRequest);
-
-        // then
-        assertThat(actualResponse).isEqualTo(null);
-
+        assertThat(sessionResponseActual).isEqualTo(sessionResponseExpected);
     }
 
     @Test
