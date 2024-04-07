@@ -40,7 +40,7 @@ public class CandidateServiceTest {
                 .builder()
                 .id(3L)
                 .name("chimie")
-                .weight(1) // coeff de l'exam : si 2 alors moyenne = * 2
+                .weight(2) // coeff de l'exam
                 .build();
 
         // Create a candidate entity

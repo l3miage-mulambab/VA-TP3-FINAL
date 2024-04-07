@@ -11,6 +11,7 @@ import fr.uga.l3miage.spring.tp3.models.EcosSessionProgrammationEntity;
 import fr.uga.l3miage.spring.tp3.models.EcosSessionProgrammationStepEntity;
 import fr.uga.l3miage.spring.tp3.models.ExamEntity;
 import fr.uga.l3miage.spring.tp3.request.SessionCreationRequest;
+import fr.uga.l3miage.spring.tp3.responses.CandidateEvaluationGridResponse;
 import fr.uga.l3miage.spring.tp3.responses.SessionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

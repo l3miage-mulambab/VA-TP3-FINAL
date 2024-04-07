@@ -1,5 +1,8 @@
 package fr.uga.l3miage.spring.tp3.components;
 
+import fr.uga.l3miage.spring.tp3.enums.SessionStatus;
+import fr.uga.l3miage.spring.tp3.exceptions.technical.SessionNotFoundException;
+import fr.uga.l3miage.spring.tp3.exceptions.technical.WrongCurrentStatusForUpdateException;
 import fr.uga.l3miage.spring.tp3.models.EcosSessionEntity;
 import fr.uga.l3miage.spring.tp3.repositories.EcosSessionProgrammationRepository;
 import fr.uga.l3miage.spring.tp3.repositories.EcosSessionProgrammationStepRepository;
