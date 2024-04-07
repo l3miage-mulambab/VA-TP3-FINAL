@@ -63,7 +63,7 @@ public class CandidateControllerTest {
         candidateEntity.setCandidateEvaluationGridEntities(Set.of(candidateEvaluationGridEntity));
         candidateRepository.save(candidateEntity);
 
-        urlParam.put("idCandidate", 2L);
+        urlParam.put("idCandidate", 1L);
        //erreur avec Double dans le exchange
         ResponseEntity<Double> response = testRestTemplate.exchange("/api/candidates/{idCandidate}/average", HttpMethod.GET, new HttpEntity<>(null, headers), Double.class ,urlParam);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
