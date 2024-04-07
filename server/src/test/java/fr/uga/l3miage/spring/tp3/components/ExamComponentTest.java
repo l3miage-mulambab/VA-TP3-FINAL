@@ -46,6 +46,5 @@ public class ExamComponentTest {
         when(examRepository.findAllById(anySet())).thenReturn(List.of(examEntity));
 
         assertDoesNotThrow(() -> examComponent.getAllById(Set.of(1L)));
-
     }
 }
